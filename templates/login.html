@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="{% static 'authentication/css/style1.css' %}">
+  <title>Login-Page</title>
+
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+    // Display Django messages including form errors using SweetAlert2
+    {% if messages %}
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                {% if message.tags == "error" %}
+                    Swal.fire({
+                        icon: 'error',
+                        title: "{{ message|escapejs }}",
+                        showConfirmButton: true, // Display a close button for errors
+                    });
+                {% else %}
+                    Swal.fire({
+                        icon: '{% if message.tags == "success" %}success{% elif message.tags == "warning" %}warning{% else %}info{% endif %}',
+                        title: "{{ message|escapejs }}",
+                        showConfirmButton: false,
+                        timer: 5000
+                    });
+                {% endif %}
+            {% endfor %}
+        });
+    {% endif %}
+</script>
+
+
+
+</head>
+
+<body>
+
+  <div class="cir"></div>
+  <div class="cir2"></div>
+
+  <div class="main">
+    <div class="box1">
+      <div class="container">
+        <div class="Bimg">
+          <img src="{% static 'authentication/img/brand.png' %}" alt="" style="width: 150px;">
+        </div>
+        <h1>Sign In</h1>
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="username">
+            <div class="icon"><i class="fas fa-user"></i></div>
+            <div class="inputbox"><input type="username" name="username" class="" placeholder="username"></div>
+          </div>
+
+          <div class="password">
+            <div class="icon"><i class="fas fa-lock"></i></div>
+            <div class="inputbox">
+
+              <input type="password" name="password" class="" placeholder="Password">
+            </div>
+          </div>
+          <div class="forgot">
+            <a href="{% url 'app:password_reset' %}">Forgot Password</a>
+          </div>
+          <div>
+            <div class="inbtn">
+
+            <button class="subbtn" type="submit">Sign In</button>
+            <p class="pin" style="padding: 0 10px;">Or</p>
+            <div  class="signinBtnpin">
+              <a style="color: white;" href="{% url 'app:signup' %}">Sign Up</a>
+            </div>
+          </div>
+
+          </div>
+        </form>
+        <div class="social">
+          <p class="socialP">Or Sign up with social platforms</p>
+          <div class="icons">
+              <div class="circle"><a href="{% url 'social:begin' 'github' %}"><i class="fab fa-github fa-2x"></i></a></div>
+              <div class="circle"><a href="{% url 'social:begin' 'google-oauth2' %}"> <i class="fab fa-google"></i></a></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box2">
+      <div class="oneAndSign">
+        <div class="oneOfUs">
+          <h2>New here?</h2>
+          <p>Those who see possibilities where other see limitations deserve to Be one in A Million!</p>
+        </div>
+        <div class="signinBtn">
+          <a href="{% url 'app:signup' %}">Sign Up</a>
+        </div>
+      </div>
+      <div class="image">
+              <img src="{% static 'authentication/img/log.svg' %}" class="img" alt="">
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'authentication/js/login.js' %}"></script>
+</html>
