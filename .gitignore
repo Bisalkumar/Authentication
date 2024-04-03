@@ -1,0 +1,15 @@
+app/__pycache__
+Authentication/__pycache__
+home/__pycache__
+
+venv
+
+*.pyc
+
+app/migrations/
+home/migrations/
+
+
+app/__init__.py
+Authentication/__init__.py
+home/__init__.py
